@@ -1,4 +1,4 @@
-# Alchemy Frientech Subgraph
+# Alchemy Friendtech Subgraph
 
 Use the following command to deploy your subgraph on Alchemy Subgraphs:
 
