@@ -1,4 +1,4 @@
-import { BigInt } from '@graphprotocol/graph-ts';
+import { BigInt, BigDecimal } from '@graphprotocol/graph-ts';
 import { Trade as TradeEvent } from '../generated/FriendtechSharesV1/FriendtechSharesV1';
 import { Trade } from '../generated/schema';
 import { createOrLoadSubject } from './helpers';
@@ -34,8 +34,16 @@ export function handleTrade(event: TradeEvent): void {
    * Update Subject entity based on the trade event
    */
   subject.earnedFees = subject.earnedFees.plus(event.params.subjectEthAmount);
+  subject.keySupply = event.params.supply;
   subject.trades = subject.trades.plus(BigInt.fromI32(1));
   subject.tradedShares = subject.tradedShares.plus(event.params.shareAmount);
+
+  // Calculate keyPrice based on the SQL calculation
+  const keySupply = subject.keySupply.toBigDecimal();
+  const keyPriceNumerator = keySupply.times(keySupply);
+  const keyPriceDenominator = BigDecimal.fromString('16000');
+  const keyPrice = keyPriceNumerator.div(keyPriceDenominator);
+  subject.keyPrice = keyPrice;
 
   subject.save();
 }

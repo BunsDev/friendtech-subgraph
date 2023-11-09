@@ -17,6 +17,8 @@ type Subject @entity {
   id: Bytes!
   subject: Bytes!
   earnedFees: BigInt!
+  keySupply: BigInt!
   trades: BigInt!
   tradedShares: BigInt!
+  keyPrice: BigDecimal!
 }
