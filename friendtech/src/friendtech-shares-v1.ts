@@ -45,5 +45,16 @@ export function handleTrade(event: TradeEvent): void {
   const keyPrice = keyPriceNumerator.div(keyPriceDenominator);
   subject.keyPrice = keyPrice;
 
+  // Calculate market cap
+  const marketCap = keySupply
+    .times(keySupply.plus(BigDecimal.fromString('1')))
+    .times(
+      keySupply
+        .times(BigDecimal.fromString('2'))
+        .plus(BigDecimal.fromString('1'))
+    )
+    .div(BigDecimal.fromString('96000'));
+  subject.marketCap = marketCap;
+
   subject.save();
 }

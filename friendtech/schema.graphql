@@ -21,4 +21,5 @@ type Subject @entity {
   trades: BigInt!
   tradedShares: BigInt!
   keyPrice: BigDecimal!
+  marketCap: BigDecimal!
 }
