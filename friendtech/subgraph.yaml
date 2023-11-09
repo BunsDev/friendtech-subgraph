@@ -15,10 +15,11 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Trade
+        - Subject
       abis:
         - name: FriendtechSharesV1
           file: ./abis/FriendtechSharesV1.json
       eventHandlers:
         - event: Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)
           handler: handleTrade
-      file: ./src/friendtech-shares-v-1.ts
+      file: ./src/friendtech-shares-v1.ts

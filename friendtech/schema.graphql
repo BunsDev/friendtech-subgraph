@@ -1,14 +1,22 @@
 type Trade @entity(immutable: true) {
   id: Bytes!
-  trader: Bytes! # address
-  subject: Bytes! # address
-  isBuy: Boolean! # bool
-  shareAmount: BigInt! # uint256
-  ethAmount: BigInt! # uint256
-  protocolEthAmount: BigInt! # uint256
-  subjectEthAmount: BigInt! # uint256
-  supply: BigInt! # uint256
+  trader: Bytes!
+  subject: Bytes!
+  isBuy: Boolean!
+  shareAmount: BigInt!
+  ethAmount: BigInt!
+  protocolEthAmount: BigInt!
+  subjectEthAmount: BigInt!
+  supply: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type Subject @entity {
+  id: Bytes!
+  subject: Bytes!
+  earnedFees: BigInt!
+  trades: BigInt!
+  tradedShares: BigInt!
 }
