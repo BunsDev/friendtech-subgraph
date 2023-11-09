@@ -1,7 +1,7 @@
 type Trade @entity(immutable: true) {
   id: Bytes!
   trader: Bytes!
-  subject: Bytes!
+  subject: Subject
   isBuy: Boolean!
   shareAmount: BigInt!
   ethAmount: BigInt!
