@@ -1,7 +1,7 @@
 import { BigInt } from '@graphprotocol/graph-ts';
-
 import { Trade as TradeEvent } from '../generated/FriendtechSharesV1/FriendtechSharesV1';
-import { Trade, Subject } from '../generated/schema';
+import { Trade } from '../generated/schema';
+import { createOrLoadSubject } from './helpers';
 
 export function handleTrade(event: TradeEvent): void {
   let trade = new Trade(
@@ -22,18 +22,10 @@ export function handleTrade(event: TradeEvent): void {
 
   trade.save();
 
-  // Now, update the Subject entity based on the trade event
-  let subject = Subject.load(event.params.subject.toHexString());
-  if (subject == null) {
-    subject = new Subject(event.params.subject.toHexString());
-    subject.subject = event.params.subject;
-    subject.earnedFees = BigInt.fromI32(0);
-    subject.keySupply = BigInt.fromI32(0);
-    subject.trades = BigInt.fromI32(0);
-    subject.tradedShares = BigInt.fromI32(0);
-  }
-
-  // Update the fields of Subject based on the trade event
+  /**
+   * Update Subject entity based on the trade event
+   */
+  let subject = createOrLoadSubject(event.params.subject);
   subject.earnedFees = subject.earnedFees.plus(event.params.subjectEthAmount);
   subject.trades = subject.trades.plus(BigInt.fromI32(1));
   subject.tradedShares = subject.tradedShares.plus(event.params.shareAmount);
