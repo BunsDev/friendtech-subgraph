@@ -4,11 +4,19 @@ import { Trade } from '../generated/schema';
 import { createOrLoadSubject } from './helpers';
 
 export function handleTrade(event: TradeEvent): void {
+  /**
+   * Load or create Subject entity first
+   */
+  let subject = createOrLoadSubject(event.params.subject);
+
+  /**
+   * Create Trade entity and set the foreign key to Subject
+   */
   let trade = new Trade(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   );
   trade.trader = event.params.trader;
-  trade.subject = event.params.subject;
+  trade.subject = subject.id; // Set the foreign key to Subject's ID
   trade.isBuy = event.params.isBuy;
   trade.shareAmount = event.params.shareAmount;
   trade.ethAmount = event.params.ethAmount;
@@ -25,7 +33,6 @@ export function handleTrade(event: TradeEvent): void {
   /**
    * Update Subject entity based on the trade event
    */
-  let subject = createOrLoadSubject(event.params.subject);
   subject.earnedFees = subject.earnedFees.plus(event.params.subjectEthAmount);
   subject.trades = subject.trades.plus(BigInt.fromI32(1));
   subject.tradedShares = subject.tradedShares.plus(event.params.shareAmount);
