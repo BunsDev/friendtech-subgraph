@@ -22,4 +22,4 @@ dataSources:
       eventHandlers:
         - event: Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)
           handler: handleTrade
-      file: ./src/friendtech-shares-v1.ts
+      file: ./mappings/friendtech-shares-v1.ts
