@@ -18,10 +18,10 @@ export function handleTrade(event: TradeEvent): void {
   trade.trader = event.params.trader;
   trade.subject = subject.id; // Set the foreign key to Subject's ID
   trade.isBuy = event.params.isBuy;
-  trade.shareAmount = event.params.shareAmount;
+  trade.shareAmount = event.params.passAmount;        // todo: verify passAmount = shareAmount
   trade.ethAmount = event.params.ethAmount;
-  trade.protocolEthAmount = event.params.protocolEthAmount;
-  trade.subjectEthAmount = event.params.subjectEthAmount;
+  trade.protocolEthAmount = event.params.ethAmount;   // todo: verify logic
+  trade.subjectEthAmount = event.params.ethAmount;    // todo: verify logic
   trade.supply = event.params.supply;
 
   trade.blockNumber = event.block.number;
@@ -33,10 +33,14 @@ export function handleTrade(event: TradeEvent): void {
   /**
    * Update Subject entity based on the trade event
    */
-  subject.earnedFees = subject.earnedFees.plus(event.params.subjectEthAmount);
+  // todo: verify below
+    // previously -> subject.earnedFees = subject.earnedFees.plus(event.params.subjectEthAmount);
+  subject.earnedFees = subject.earnedFees.plus(event.params.referrerFee);
   subject.keySupply = event.params.supply;
   subject.trades = subject.trades.plus(BigInt.fromI32(1));
-  subject.tradedShares = subject.tradedShares.plus(event.params.shareAmount);
+  // todo: verify below
+    // previously -> subject.tradedShares = subject.tradedShares.plus(event.params.shareAmount);
+  subject.tradedShares = subject.tradedShares.plus(event.params.passAmount);
 
   // Calculate keyPrice based on the SQL calculation
   const keySupply = subject.keySupply.toBigDecimal();
