@@ -1,0 +1,19 @@
+{
+  "name": "battle-arena",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "auth": "graph auth",
+    "deploy": "graph deploy --product hosted-service bunsdev/battle-arena",
+    "create-local": "graph create --node http://localhost:8020/ bunsdev/battle-arena",
+    "remove-local": "graph remove --node http://localhost:8020/ bunsdev/battle-arena",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bunsdev/battle-arena",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.60.0",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}

@@ -4,3 +4,5 @@
 
 # Ignore dependencies installed via npm or yarn
 /friendtech/node_modules/
+
+node_modules

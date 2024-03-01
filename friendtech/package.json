@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ friendtech",
-    "create-local": "graph create --node http://localhost:8020/ friendtech",
-    "remove-local": "graph remove --node http://localhost:8020/ friendtech",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 friendtech",
+    "deploy": "graph deploy --product hosted-service bunsdev/friendtech",
+    "create-local": "graph create --node http://localhost:8020/ bunsdev/friendtech",
+    "remove-local": "graph remove --node http://localhost:8020/ bunsdev/friendtech",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bunsdev/friendtech",
     "test": "graph test"
   },
   "dependencies": {

@@ -1,0 +1,25 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BattleArena
+    network: avalanche
+    source:
+      address: "0x3149429360Dc390E91697bF0418B4cE016dF7039"
+      abi: BattleArena
+      startBlock: 41032336
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Trade
+        - Subject
+      abis:
+        - name: BattleArena
+          file: ./abis/BattleArenaABI.json
+      eventHandlers:
+        - event: Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleTrade
+      file: ./mappings/battle-arena-shares.ts
